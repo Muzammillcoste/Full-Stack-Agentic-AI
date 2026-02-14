@@ -1,5 +1,5 @@
 services:
-    vector-db:
+    valkey:
         image: valkey/valkey:latest
         ports:
             - "6379:6379"
