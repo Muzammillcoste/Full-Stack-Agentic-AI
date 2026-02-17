@@ -26,8 +26,9 @@ def process_query(query:str)->str:
 
     context = "\n\n\n".join([f"Page Content: {result.page_content}\nPage Number: {result.metadata['page_label']}\nFile Location: {result.metadata['source']}" for result in search_results])
 
+    
     # chatmodel
-    SYSTEM_PROMPT = """You are a helpful assistant that answers questions based on the context availabl and it is retrive from the PDF file along with page_content, and page number. 
+    SYSTEM_PROMPT = f"""You are a helpful assistant that answers questions based on the context availabl and it is retrive from the PDF file along with page_content, and page number. 
 
     you only answer the user based on the following context and navigate the user to right page number to know more details.
 

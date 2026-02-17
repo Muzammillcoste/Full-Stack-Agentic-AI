@@ -18,4 +18,5 @@ dependencies = [
     "langchain-qdrant>=1.1.0",
     "rq>=2.6.1",
     "fastapi[standard]>=0.128.7",
+    "watchdog>=6.0.0",
 ]
