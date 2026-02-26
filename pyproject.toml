@@ -19,4 +19,6 @@ dependencies = [
     "rq>=2.6.1",
     "fastapi[standard]>=0.128.7",
     "watchdog>=6.0.0",
+    "langgraph>=1.0.9",
+    "langchain[google-genai]>=1.2.10",
 ]
