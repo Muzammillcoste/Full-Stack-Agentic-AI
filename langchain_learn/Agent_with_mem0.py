@@ -5,11 +5,17 @@ from openai import OpenAI
 
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+NEO4J_URI = os.getenv("NEO4J_URI")
+NEO4J_USERNAME = os.getenv("NEO4J_USERNAME")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
+NEO4J_DATABASE = os.getenv("NEO4J_DATABASE")
+
+
 
 config = {
     "vector_store": {
         "provider": "qdrant",
-        "config": {"host": "localhost", "port": 6333}
+        "config": {"host": "localhost", "port": 6333, "embedding_model_dims": 768}
     },
     "llm": {
         "provider": "gemini",
@@ -18,6 +24,15 @@ config = {
     "embedder": {
         "provider": "gemini",
         "config": {"model": "models/gemini-embedding-001", "api_key": GEMINI_API_KEY},
+    },
+    "graph_store": {
+        "provider": "neo4j",
+        "config": {
+            "url": NEO4J_URI,
+            "username": NEO4J_USERNAME,
+            "password": NEO4J_PASSWORD,
+        },
+        "version": "v1.1"
     }
 }
 
@@ -35,10 +50,14 @@ while True:
     # 1. search related memories
     search_memory = mem_client.search(user_input, user_id="john_doe")
 
+    results = search_memory.get("results", [])
+
     memories = [
         f"ID: {mem.get('id')}\nMemory: {mem.get('memory')}"
-        for mem in search_memory
+        for mem in results
     ]
+
+    print('memories:', memories)
 
     SYSTEM_PROMPT = f"""
 You are a helpful assistant.
