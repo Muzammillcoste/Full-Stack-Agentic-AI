@@ -31,7 +31,7 @@ def main():
 
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source)
-        r.pause_threshold = 2
+        r.pause_threshold = 1
 
         print("Listening...")
         audio = r.listen(source)    
